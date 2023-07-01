@@ -1,6 +1,6 @@
 ### swaroop sathyanarayanan 
 
-## Introduction
+## Purpose
 This website serves as a platform to showcase my many talents and accomplishements
 
 <video width="640" height="360" controls>
