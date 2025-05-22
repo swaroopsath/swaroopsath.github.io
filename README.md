@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -28,17 +27,15 @@
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 3rem;
-      color: #0ff;
-      text-shadow: 0 0 20px #0ff;
+      color: darkblue;
+      text-shadow: 0 0 20px darkblue;
       animation: pulse 2s infinite;
       z-index: 10;
-      border-bottom: 2px solid #0ff;
-      padding-bottom: 5px;
     }
 
     @keyframes pulse {
-      0%, 100% { text-shadow: 0 0 20px #0ff; }
-      50% { text-shadow: 0 0 40px #0ff; }
+      0%, 100% { text-shadow: 0 0 20px darkblue; }
+      50% { text-shadow: 0 0 40px darkblue; }
     }
 
     #explosion {
@@ -46,18 +43,18 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(white, orange, red, black);
+      width: 1000px;
+      height: 1000px;
+      background: radial-gradient(circle, white, orange, red, darkred, black);
       border-radius: 50%;
-      animation: explode 1.5s ease-out forwards;
+      animation: explode 2s ease-out forwards;
       z-index: 5;
     }
 
     @keyframes explode {
       0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-      80% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
-      100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+      80% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.7; }
+      100% { transform: translate(-50%, -50%) scale(1.7); opacity: 0; }
     }
   </style>
 </head>
@@ -86,7 +83,7 @@
         stars.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          r: Math.random() * 1.5,
+          r: Math.random() * 2 + 1,
           alpha: Math.random(),
         });
       }
@@ -105,8 +102,7 @@
     function animateStars() {
       for (const star of stars) {
         star.alpha += (Math.random() - 0.5) * 0.05;
-        if (star.alpha < 0) star.alpha = 0;
-        if (star.alpha > 1) star.alpha = 1;
+        star.alpha = Math.max(0.2, Math.min(1, star.alpha));
       }
     }
 
@@ -116,36 +112,37 @@
       requestAnimationFrame(draw);
     }
 
-    createStars(300);
+    createStars(1000);
     draw();
 
     // Random Meteors
     function spawnMeteor() {
       const meteor = document.createElement('div');
       meteor.style.position = 'absolute';
-      meteor.style.width = '4px';
-      meteor.style.height = '100px';
+      meteor.style.width = '6px';
+      meteor.style.height = '160px';
       meteor.style.background = 'linear-gradient(white, transparent)';
       meteor.style.top = `${Math.random() * window.innerHeight * 0.5}px`;
       meteor.style.left = `${Math.random() * window.innerWidth}px`;
       meteor.style.transform = 'rotate(45deg)';
       meteor.style.zIndex = 1;
-      meteor.style.opacity = 0.8;
-      meteor.style.transition = 'transform 1s linear, opacity 1s';
+      meteor.style.opacity = 0.9;
+      meteor.style.transition = 'transform 1.2s linear, opacity 1.2s';
 
       document.body.appendChild(meteor);
 
       setTimeout(() => {
-        meteor.style.transform += ' translateY(300px)';
+        meteor.style.transform += ' translateY(500px)';
         meteor.style.opacity = 0;
       }, 10);
 
       setTimeout(() => {
         meteor.remove();
-      }, 1000);
+      }, 1200);
     }
 
-    setInterval(spawnMeteor, 2000); // every 2s
+    setInterval(spawnMeteor, 300); // way more meteors now
   </script>
 </body>
 </html>
+
